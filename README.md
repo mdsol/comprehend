@@ -25,6 +25,15 @@ require "comprehend"
 
 Tested on ruby-mri 1.9.3 and 2.0.0, not compatible with lower versions.
 
+# Why "comprehend"?
+
+Invocations of comprehend will often look like Python list comprehensions.
+Compare the first example above to
+
+```python
+[str(i) for i in [1,2,3] if i<3] == ['1', '2']
+```
+
 # License
 Copyright (C) 2013 Medidata Solutions Inc.
  
