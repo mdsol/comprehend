@@ -1,7 +1,6 @@
 Gem::Specification.new do |s|
   s.name                     = 'comprehend'
-  s.version                  = '0.0.0'
-  s.date                     = '2013-01-29'
+  s.version                  = '0.0.1'
   s.summary                  = "Transform and compact an array in one iteration"
   s.description              = '[1,2,3].comprehend{ |i| i.to_s if i<3 } == ["1","2"]'
   s.authors                  = ["Aaron Weiner"]
