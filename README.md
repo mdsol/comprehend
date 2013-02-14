@@ -17,6 +17,9 @@ of self and returns an array of all non-nil results.
 because it only iterates once over the array.  For blocks that do not modify the array
 in place, the result is also equivalent to `select(&block).map(&block)`.
 
+`Array#comprehend!` comprehends the array in place. Its return value is either the modified array
+or nil if no compacting was done, equivalent to `map!(&block).compact!`.
+
 # Usage
 
 ```ruby
