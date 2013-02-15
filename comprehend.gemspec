@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.extensions               = ['ext/comprehend/extconf.rb']
   s.homepage                 = 'http://github.com/mdsol-share/comprehend'
   s.required_ruby_version    = '>= 1.9.3'
+  s.license                  = 'MIT'
 
   s.add_development_dependency 'rspec'
 end
