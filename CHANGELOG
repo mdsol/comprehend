@@ -1,0 +1,4 @@
+0.0.2:
+  Changes to gemspec:
+    Added required_paths
+    Set rdoc ignore flags to avoid warnings
