@@ -18,3 +18,12 @@ Benchmark.bmbm do |reporter|
   reporter.report("inject") {x.inject([]) {|memo,i| i<500 ? memo << i.to_s : memo}}
   reporter.report("select then map") {x.select{|i| i.to_s if i<500}.map{|i| i.to_s if i<500}}
 end
+
+puts "Hash map of squares"
+array = (1..100000)
+Benchmark.bmbm do |y|
+  y.report('inject with merge') do array.inject({}) { |memo, x| memo.merge!(x => x**2) } end
+  y.report('faster inject') do array.inject({}) { |memo, x| memo[x] = x**2; memo } end
+  y.report('zip') do Hash[array.zip(array.map { |x| x**2 })] end
+  y.report('hash_map') do array.hash_map { |x| x**2 } end
+end

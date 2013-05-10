@@ -56,6 +56,13 @@ static void ary_resize_capa(VALUE ary, long capacity)
     }
 }
 
+VALUE rb_enum_values_pack(int argc, VALUE *argv)
+{
+  if (argc == 0) return Qnil;
+  if (argc == 1) return argv[0];
+  return rb_ary_new4(argc, argv);
+}
+
 static VALUE rb_ary_comprehend_bang(VALUE ary)
 {
     VALUE *p, *t, *end;
@@ -90,7 +97,25 @@ static VALUE rb_ary_comprehend(ary)
     return ary;
 }
 
+static VALUE hash_map_i(VALUE i, VALUE hash, int argc, VALUE *argv)
+{
+  rb_hash_aset(hash, rb_enum_values_pack(argc, argv), rb_yield_values2(argc, argv));
+  return Qnil;
+}
+
+static ID id_each;
+
+static VALUE enum_hash_map(VALUE obj)
+{
+  VALUE hash;
+  hash = rb_hash_new();
+  rb_block_call(obj, id_each, 0, 0, hash_map_i, hash);
+  return hash;
+}
+
 void Init_comprehend(void) {
+  id_each = rb_intern("each");
   rb_define_method(rb_cArray, "comprehend!", rb_ary_comprehend_bang, 0);
   rb_define_method(rb_cArray, "comprehend", rb_ary_comprehend, 0);
+  rb_define_method(rb_mEnumerable, "hash_map", enum_hash_map, 0);
 }
