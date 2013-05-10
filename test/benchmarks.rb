@@ -26,4 +26,5 @@ Benchmark.bmbm do |y|
   y.report('faster inject') do array.inject({}) { |memo, x| memo[x] = x**2; memo } end
   y.report('zip') do Hash[array.zip(array.map { |x| x**2 })] end
   y.report('hash_map') do array.hash_map { |x| x**2 } end
+  y.report('each') do hsh = {}; array.each { |x| hsh[x] = x**2 }; hsh end
 end

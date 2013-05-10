@@ -1,5 +1,6 @@
 #include <ruby.h>
 
+//begin copypasta of core ruby code that can't be easily included
 #define RARRAY_SHARED_ROOT_FLAG FL_USER5
 #define ARY_SHARED_ROOT_P(ary) (FL_TEST((ary), RARRAY_SHARED_ROOT_FLAG))
 # define ARY_EMBED_P(ary) \
@@ -63,6 +64,23 @@ VALUE rb_enum_values_pack(int argc, VALUE *argv)
   return rb_ary_new4(argc, argv);
 }
 
+//end copypasta
+
+/*
+ * call-seq:
+ *    ary.comprehend! { |item| block } ->  ary or nil
+ *
+ * Invokes the given block once for each element of +self+.
+ * If the result is nil, delete the element, otherwise replace it with the result.
+ * Returns +self+ if any elements were deleted, otherwise nil.
+ *
+ *    a = [1, 2, 3]
+ *    a.comprehend! { |num| num.to_s if num < 3 } #=> ["1", "2"]
+ *    a                                           #=> ["1", "2"]
+ *    a.comprehend! { |str| str.to_i }            #=> nil
+ *    a                                           #=> [1, 2]
+ */
+
 static VALUE rb_ary_comprehend_bang(VALUE ary)
 {
     VALUE *p, *t, *end;
@@ -89,6 +107,18 @@ static VALUE rb_ary_comprehend_bang(VALUE ary)
     return ary;
 }
 
+/*
+ * call-seq:
+ *    ary.comprehend { |item| block } ->  new_ary
+ *
+ * Invokes the given block once for each element of +self+.
+ * Creates a new array with all non-nil values returned by the block.
+ *
+ *    a = [1, 2, 3]
+ *    a.comprehend { |num| num.to_s if num < 3 }  #=> ["1", "2"]
+ *    a                                           #=> [1, 2, 3]
+ */
+
 static VALUE rb_ary_comprehend(ary)
     VALUE ary;
 {
@@ -104,6 +134,16 @@ static VALUE hash_map_i(VALUE i, VALUE hash, int argc, VALUE *argv)
 }
 
 static ID id_each;
+
+/*
+ * call-seq:
+ *    enum.hash_map { |item| block } ->  hash
+ *
+ * Invokes the given block once for each element of +self+.
+ * Creates a new hash with the elements as keys and the results as values.
+ *
+ *    (1..3).hash_map { |num| num**2 }  #=> { 1: 1, 2: 4, 3: 9 }
+ */
 
 static VALUE enum_hash_map(VALUE obj)
 {
