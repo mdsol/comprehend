@@ -4,4 +4,4 @@
     Set rdoc ignore flags to avoid warnings
 
 0.1.0:
-  Added Enumerable#hash_map
+  Added Enumerable#project

@@ -127,7 +127,7 @@ static VALUE rb_ary_comprehend(ary)
     return ary;
 }
 
-static VALUE hash_map_i(VALUE i, VALUE hash, int argc, VALUE *argv)
+static VALUE project_i(VALUE i, VALUE hash, int argc, VALUE *argv)
 {
   rb_hash_aset(hash, rb_enum_values_pack(argc, argv), rb_yield_values2(argc, argv));
   return Qnil;
@@ -137,19 +137,19 @@ static ID id_each;
 
 /*
  * call-seq:
- *    enum.hash_map { |item| block } ->  hash
+ *    enum.project { |item| block } ->  hash
  *
  * Invokes the given block once for each element of +self+.
  * Creates a new hash with the elements as keys and the results as values.
  *
- *    (1..3).hash_map { |num| num**2 }  #=> { 1: 1, 2: 4, 3: 9 }
+ *    (1..3).project { |num| num**2 }  #=> { 1 => 1, 2 => 4, 3 => 9 }
  */
 
-static VALUE enum_hash_map(VALUE obj)
+static VALUE enum_project(VALUE obj)
 {
   VALUE hash;
   hash = rb_hash_new();
-  rb_block_call(obj, id_each, 0, 0, hash_map_i, hash);
+  rb_block_call(obj, id_each, 0, 0, project_i, hash);
   return hash;
 }
 
@@ -157,5 +157,5 @@ void Init_comprehend(void) {
   id_each = rb_intern("each");
   rb_define_method(rb_cArray, "comprehend!", rb_ary_comprehend_bang, 0);
   rb_define_method(rb_cArray, "comprehend", rb_ary_comprehend, 0);
-  rb_define_method(rb_mEnumerable, "hash_map", enum_hash_map, 0);
+  rb_define_method(rb_mEnumerable, "project", enum_project, 0);
 }
