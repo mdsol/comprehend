@@ -2,3 +2,6 @@
   Changes to gemspec:
     Added required_paths
     Set rdoc ignore flags to avoid warnings
+
+0.0.3:
+  Fixed "Symbol not found: _FL_SET_EMBED error" when simultaneously resizing an array and its elements
