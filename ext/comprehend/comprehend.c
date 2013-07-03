@@ -49,7 +49,7 @@ static void ary_resize_capa(VALUE ary, long capacity)
             VALUE *ptr = RARRAY_PTR(ary);
             if (len > capacity) len = capacity;
             MEMCPY(RARRAY(ary)->as.ary, ptr, VALUE, len);
-            FL_SET_EMBED(ary);
+            FL_SET(ary, RARRAY_EMBED_FLAG);
             ARY_SET_LEN(ary, len);
             xfree(ptr);
         }

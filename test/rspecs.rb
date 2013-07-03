@@ -40,4 +40,12 @@ describe Array, "#comprehend!" do
     ary.comprehend!{|i| i.to_s if i<15}
     ary.size.should == 15
   end
+
+  it "can resize elements of an array while transforming it" do
+    ary = [*1..100]
+    ary.comprehend!{ |i| i**3 unless i==50}
+    ary.size.should == 99
+    ary.last.should == 100**3
+  end
+
 end
