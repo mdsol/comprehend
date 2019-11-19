@@ -1,3 +1,10 @@
+# Deprecated
+
+This repository is deprecated.
+
+The information below is left only as a reference.
+
+
 # comprehend
 
 ```ruby
